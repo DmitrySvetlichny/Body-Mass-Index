@@ -91,6 +91,7 @@ class InfoViewController: UIViewController {
             infoLable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 20),
             infoLable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -20),
         ])
+        
         NSLayoutConstraint.activate([
             imageVievInfo.topAnchor.constraint(equalTo: infoLable.topAnchor, constant: 200),
             imageVievInfo.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 15),

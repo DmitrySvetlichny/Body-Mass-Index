@@ -225,11 +225,13 @@ class SettingsViewController: UIViewController {
             imageStack.widthAnchor.constraint(equalToConstant: 50),
             measuresImage.heightAnchor.constraint(equalToConstant: 45)
         ])
+        
         NSLayoutConstraint.activate([
             lableStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             lableStack.leadingAnchor.constraint(equalTo: imageStack.trailingAnchor, constant: 5),
             lableStack.heightAnchor.constraint(equalTo: imageStack.heightAnchor)
         ])
+        
         NSLayoutConstraint.activate([
             buttonStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             buttonStack.leadingAnchor.constraint(equalTo: lableStack.trailingAnchor, constant: 5),
@@ -238,6 +240,7 @@ class SettingsViewController: UIViewController {
             measuresSegmented.topAnchor.constraint(equalTo: buttonStack.topAnchor, constant: 5),
             langSegmented.heightAnchor.constraint(equalToConstant: 35)
         ])
+        
         NSLayoutConstraint.activate([
             themeSwitch.leadingAnchor.constraint(equalTo: lableStack.trailingAnchor, constant: 5),
             themeSwitch.topAnchor.constraint(equalTo: buttonStack.bottomAnchor, constant: 64)

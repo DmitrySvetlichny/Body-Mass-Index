@@ -62,6 +62,7 @@ class HistoryCell: UITableViewCell {
             nameLable.heightAnchor.constraint(equalToConstant: 55),
             nameLable.widthAnchor.constraint(equalToConstant: 150)
         ])
+        
         NSLayoutConstraint.activate([
             resultLable.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             resultLable.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -69,6 +70,7 @@ class HistoryCell: UITableViewCell {
             resultLable.leadingAnchor.constraint(equalTo: nameLable.trailingAnchor),
             resultLable.widthAnchor.constraint(equalToConstant: 100)
         ])
+        
         NSLayoutConstraint.activate([
             dataLable.leadingAnchor.constraint(equalTo: resultLable.trailingAnchor),
             dataLable.topAnchor.constraint(equalTo: contentView.topAnchor),

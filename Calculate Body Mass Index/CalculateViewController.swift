@@ -207,12 +207,14 @@ class CalculateViewController: UIViewController {
             mainNameLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             mainNameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
+        
         NSLayoutConstraint.activate([
             stackTextField.topAnchor.constraint(lessThanOrEqualTo: mainNameLabel.bottomAnchor, constant: 105),
             stackTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40),
             stackTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40),
             massTextField.heightAnchor.constraint(equalToConstant: 55)
         ])
+        
         NSLayoutConstraint.activate([
             calculateButton.topAnchor.constraint(equalTo: stackTextField.bottomAnchor, constant: 75),
             calculateButton.widthAnchor.constraint(equalToConstant: 200),

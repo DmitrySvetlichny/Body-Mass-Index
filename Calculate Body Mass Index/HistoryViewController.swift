@@ -105,6 +105,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
             searchHistory.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             searchHistory.widthAnchor.constraint(equalTo: view.widthAnchor)
         ])
+        
         NSLayoutConstraint.activate([
             tabelHistory.topAnchor.constraint(equalTo: searchHistory.bottomAnchor),
             tabelHistory.leadingAnchor.constraint(equalTo: view.leadingAnchor),

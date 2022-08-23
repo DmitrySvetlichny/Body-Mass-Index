@@ -299,6 +299,7 @@ class DatailViewController: UIViewController {
             stackResult.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -25),
             stackResult.heightAnchor.constraint(equalToConstant: 300)
         ])
+        
         NSLayoutConstraint.activate([
             imageVievInfo.topAnchor.constraint(equalTo: stackResult.bottomAnchor, constant: 50),
             imageVievInfo.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 15),

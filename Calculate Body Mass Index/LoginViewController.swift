@@ -82,12 +82,14 @@ class LoginViewController: UIViewController {
             mainLable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 60),
             mainLable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -60)
         ])
+        
         NSLayoutConstraint.activate([
             nameTextField.topAnchor.constraint(equalTo: mainLable.bottomAnchor, constant: 85),
             nameTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
             nameTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30),
             nameTextField.heightAnchor.constraint(equalToConstant: 65)
         ])
+        
         NSLayoutConstraint.activate([
             loginButton.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 100),
             loginButton.widthAnchor.constraint(equalToConstant: 200),
