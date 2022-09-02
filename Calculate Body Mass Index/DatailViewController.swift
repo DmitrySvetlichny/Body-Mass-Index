@@ -57,17 +57,14 @@ class DatailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupDatailVC()
         setupConstraintsDatail()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         let userDef = UserDefaults.standard
         let isRU = userDef.bool(forKey: "isRU")
         let isDark = userDef.bool(forKey: "isDark")
-        
         navigationItem.title = "ПОДРОБНО"
         if isRU == false {
             navigationItem.title = "DETAIL"
@@ -169,7 +166,6 @@ class DatailViewController: UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         if isDark == true {
             view.backgroundColor = UIColor(red: 0/256, green: 150/256, blue: 199/256, alpha: 1)
-            
             let appearance = UINavigationBarAppearance()
             appearance.backgroundColor = UIColor(red: 72/256, green: 202/256, blue: 228/256, alpha: 1)
             appearance.titleTextAttributes = [.foregroundColor: UIColor(red: 3/256, green: 4/256, blue: 94/256, alpha: 1)]
@@ -178,25 +174,20 @@ class DatailViewController: UIViewController {
             navigationController?.navigationBar.standardAppearance = appearance
             navigationController?.navigationBar.compactAppearance = appearance
             navigationController?.navigationBar.scrollEdgeAppearance = appearance
-
             tabBarController?.tabBar.backgroundColor = UIColor(red: 72/256, green: 202/256, blue: 228/256, alpha: 1)
             tabBarController?.tabBar.tintColor = UIColor(red: 3/256, green: 4/256, blue: 94/256, alpha: 1)
-            
             resultLabel.textColor = UIColor(red: 2/256, green: 62/256, blue: 138/256, alpha: 1)
             descriptionLabel.textColor = UIColor(red: 2/256, green: 62/256, blue: 138/256, alpha: 1)
         } else {
             view.backgroundColor = UIColor(red: 86/256, green: 207/256, blue: 225/256, alpha: 1)
-            
             resultLabel.textColor = UIColor(red: 105/256, green: 48/256, blue: 195/256, alpha: 1)
             descriptionLabel.textColor = UIColor(red: 105/256, green: 48/256, blue: 195/256, alpha: 1)
         }
     }
     
     func setupDatailVC() {
-        
         let userDef = UserDefaults.standard
         let isRU = userDef.bool(forKey: "isRU")
-        
         view.backgroundColor = UIColor(red: 86/256, green: 207/256, blue: 225/256, alpha: 1)
         
         resultLabel.text = "Ваш результат: \(String(format: "%.2f", result))"
@@ -285,27 +276,24 @@ class DatailViewController: UIViewController {
         }
         
         view.addSubview(imageVievInfo)
-        
         stackResult.addArrangedSubview(resultLabel)
         stackResult.addArrangedSubview(descriptionLabel)
         view.addSubview(stackResult)
     }
     
     func setupConstraintsDatail() {
-        
         NSLayoutConstraint.activate([
             stackResult.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             stackResult.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25),
             stackResult.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -25),
-            stackResult.heightAnchor.constraint(equalToConstant: 300)
+            stackResult.heightAnchor.constraint(equalToConstant: 300),
         ])
-        
         NSLayoutConstraint.activate([
             imageVievInfo.topAnchor.constraint(equalTo: stackResult.bottomAnchor, constant: 50),
             imageVievInfo.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 15),
             imageVievInfo.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15),
             imageVievInfo.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
-            imageVievInfo.heightAnchor.constraint(equalToConstant: 220)
+            imageVievInfo.heightAnchor.constraint(equalToConstant: 220),
         ])
     }
 }

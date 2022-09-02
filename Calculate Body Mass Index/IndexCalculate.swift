@@ -3,10 +3,8 @@ import Foundation
 struct IndexCalculate {
     
     func calculation(mass: Float, heig: Float) -> Float {
-        
         let userDef = UserDefaults.standard
         let isKG = userDef.bool(forKey: "isKG")
-        
         if isKG == false {
             let funt = mass * 703
             let result = funt / (heig * heig)

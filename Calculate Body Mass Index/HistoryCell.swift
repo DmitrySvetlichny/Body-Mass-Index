@@ -37,7 +37,6 @@ class HistoryCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         setupCellView()
         setupConstraints()
     }
@@ -47,35 +46,31 @@ class HistoryCell: UITableViewCell {
     }
     
     func setupCellView() {
-        
         contentView.addSubview(nameLable)
         contentView.addSubview(resultLable)
         contentView.addSubview(dataLable)
     }
     
     func setupConstraints() {
-        
         NSLayoutConstraint.activate([
             nameLable.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
             nameLable.topAnchor.constraint(equalTo: contentView.topAnchor),
             nameLable.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             nameLable.heightAnchor.constraint(equalToConstant: 55),
-            nameLable.widthAnchor.constraint(equalToConstant: 150)
+            nameLable.widthAnchor.constraint(equalToConstant: 150),
         ])
-        
         NSLayoutConstraint.activate([
             resultLable.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             resultLable.topAnchor.constraint(equalTo: contentView.topAnchor),
             resultLable.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             resultLable.leadingAnchor.constraint(equalTo: nameLable.trailingAnchor),
-            resultLable.widthAnchor.constraint(equalToConstant: 100)
+            resultLable.widthAnchor.constraint(equalToConstant: 100),
         ])
-        
         NSLayoutConstraint.activate([
             dataLable.leadingAnchor.constraint(equalTo: resultLable.trailingAnchor),
             dataLable.topAnchor.constraint(equalTo: contentView.topAnchor),
             dataLable.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            dataLable.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            dataLable.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])
     }
 }

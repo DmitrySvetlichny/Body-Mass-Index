@@ -3,7 +3,6 @@ import UIKit
 class CalculateViewController: UIViewController {
     
     let name: String
-    
     var items = [ItemCalculate]()
     
     var mainNameLabel: UILabel = {
@@ -82,14 +81,12 @@ class CalculateViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupCalculateViewController()
         setupConstraintsCalc()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         let userDef = UserDefaults.standard
         let isRU = userDef.bool(forKey: "isRU")
         let isDark = userDef.bool(forKey: "isDark")
@@ -105,7 +102,6 @@ class CalculateViewController: UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         if isDark == true {
             view.backgroundColor = UIColor(red: 0/256, green: 150/256, blue: 199/256, alpha: 1)
-            
             let appearance = UINavigationBarAppearance()
             appearance.backgroundColor = UIColor(red: 72/256, green: 202/256, blue: 228/256, alpha: 1)
             appearance.titleTextAttributes = [.foregroundColor: UIColor(red: 3/256, green: 4/256, blue: 94/256, alpha: 1)]
@@ -114,10 +110,8 @@ class CalculateViewController: UIViewController {
             navigationController?.navigationBar.standardAppearance = appearance
             navigationController?.navigationBar.compactAppearance = appearance
             navigationController?.navigationBar.scrollEdgeAppearance = appearance
-            
             tabBarController?.tabBar.backgroundColor = UIColor(red: 72/256, green: 202/256, blue: 228/256, alpha: 1)
             tabBarController?.tabBar.tintColor = UIColor(red: 3/256, green: 4/256, blue: 94/256, alpha: 1)
-            
             mainNameLabel.textColor = UIColor(red: 2/256, green: 62/256, blue: 138/256, alpha: 1)
             massTextField.backgroundColor = UIColor(red: 202/256, green: 240/256, blue: 248/256, alpha: 1)
             heightTextField.backgroundColor = UIColor(red: 202/256, green: 240/256, blue: 248/256, alpha: 1)
@@ -126,7 +120,6 @@ class CalculateViewController: UIViewController {
             calculateButton.setTitleColor(UIColor(red: 0/256, green: 150/256, blue: 199/256, alpha: 1), for: .normal)
         } else {
             view.backgroundColor = UIColor(red: 86/256, green: 207/256, blue: 225/256, alpha: 1)
-            
             mainNameLabel.textColor = UIColor(red: 105/256, green: 48/256, blue: 195/256, alpha: 1)
             massTextField.backgroundColor = .white
             heightTextField.backgroundColor = .white
@@ -135,7 +128,7 @@ class CalculateViewController: UIViewController {
             calculateButton.backgroundColor = UIColor(red: 105/256, green: 48/256, blue: 195/256, alpha: 1)
         }
         
-        navigationItem.backButtonTitle = "Расчёт"
+        navigationItem.backButtonTitle = "Калькулятор"
         if isRU == false {
             navigationItem.backButtonTitle = "Calculation"
         }
@@ -183,44 +176,36 @@ class CalculateViewController: UIViewController {
     }
     
     func setupCalculateViewController() {
-        
         view.backgroundColor = UIColor(red: 86/256, green: 207/256, blue: 225/256, alpha: 1)
-        
         mainNameLabel.text = "\(name), давайте рассчитаем индекс массы Вашего тела!"
         view.addSubview(mainNameLabel)
-        
         stackTextField.addArrangedSubview(massTextField)
         stackTextField.addArrangedSubview(heightTextField)
         view.addSubview(stackTextField)
-        
         massTextField.delegate = self
         heightTextField.delegate = self
-        
         view.addSubview(calculateButton)
         calculateButton.addTarget(self, action: #selector(startCalculation), for: .touchUpInside)
     }
     
     func setupConstraintsCalc() {
-        
         NSLayoutConstraint.activate([
             mainNameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             mainNameLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            mainNameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+            mainNameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
         ])
-        
         NSLayoutConstraint.activate([
             stackTextField.topAnchor.constraint(lessThanOrEqualTo: mainNameLabel.bottomAnchor, constant: 105),
             stackTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40),
             stackTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40),
-            massTextField.heightAnchor.constraint(equalToConstant: 55)
+            massTextField.heightAnchor.constraint(equalToConstant: 55),
         ])
-        
         NSLayoutConstraint.activate([
             calculateButton.topAnchor.constraint(equalTo: stackTextField.bottomAnchor, constant: 75),
             calculateButton.widthAnchor.constraint(equalToConstant: 200),
             calculateButton.heightAnchor.constraint(equalToConstant: 100),
             calculateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            calculateButton.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10)
+            calculateButton.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
     }
     
@@ -230,10 +215,8 @@ class CalculateViewController: UIViewController {
     
     @objc
     func startCalculation() {
-        
         let userDef = UserDefaults.standard
         let isRU = userDef.bool(forKey: "isRU")
-        
         let calculatStruct = IndexCalculate()
         
         guard let masstext = massTextField.text, let floatMassText = Float(masstext) else {
@@ -262,6 +245,8 @@ class CalculateViewController: UIViewController {
         
         let item = ItemCalculate(name: name, result: String(format: "%.2f",result), date: dateString)
         items.append(item)
+        let itemsData = try! JSONEncoder().encode(items)
+        userDef.set(itemsData, forKey: "items")
         
         guard let vcs = tabBarController?.viewControllers else { return }
         guard let navVC = vcs[1] as? UINavigationController else { return }
@@ -276,12 +261,10 @@ class CalculateViewController: UIViewController {
     
     @objc
     func logOut() {
-        
         let userDef = UserDefaults.standard
         let isRU = userDef.bool(forKey: "isRU")
         
         let alert = UIAlertController(title: "Предупреждение!", message: "Вы точно хотите выйти?", preferredStyle: .alert)
-        
         if isRU == false {
             alert.title = "Warning!"
             alert.message = "Your definitely want to exit"
@@ -290,7 +273,9 @@ class CalculateViewController: UIViewController {
         if isRU == false {
             let yes = UIAlertAction(title: "Yes", style: .destructive) { action in
                 let logVC = LoginViewController()
-                guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else {fatalError()}
+                guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { fatalError()
+                }
+                
                 sceneDelegate.window?.rootViewController = logVC
                 
                 userDef.set(false, forKey: "isLogIn")
@@ -302,7 +287,9 @@ class CalculateViewController: UIViewController {
         } else {
             let yes = UIAlertAction(title: "Да", style: .destructive) { action in
                 let logVC = LoginViewController()
-                guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else {fatalError()}
+                guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { fatalError()
+                }
+                
                 sceneDelegate.window?.rootViewController = logVC
                 
                 userDef.set(false, forKey: "isLogIn")

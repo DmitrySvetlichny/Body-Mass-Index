@@ -27,17 +27,14 @@ class InfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupInfoVC()
         setupInfoConstraints()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         let userDef = UserDefaults.standard
         let isRU = userDef.bool(forKey: "isRU")
         let isDark = userDef.bool(forKey: "isDark")
-        
         navigationItem.title = "ИНФО"
         if isRU == false {
             navigationItem.title = "INFO"
@@ -55,7 +52,6 @@ class InfoViewController: UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         if isDark == true {
             view.backgroundColor = UIColor(red: 0/256, green: 150/256, blue: 199/256, alpha: 1)
-            
             let appearance = UINavigationBarAppearance()
             appearance.backgroundColor = UIColor(red: 72/256, green: 202/256, blue: 228/256, alpha: 1)
             appearance.titleTextAttributes = [.foregroundColor: UIColor(red: 3/256, green: 4/256, blue: 94/256, alpha: 1)]
@@ -64,40 +60,33 @@ class InfoViewController: UIViewController {
             navigationController?.navigationBar.standardAppearance = appearance
             navigationController?.navigationBar.compactAppearance = appearance
             navigationController?.navigationBar.scrollEdgeAppearance = appearance
-
             tabBarController?.tabBar.backgroundColor = UIColor(red: 72/256, green: 202/256, blue: 228/256, alpha: 1)
             tabBarController?.tabBar.tintColor = UIColor(red: 3/256, green: 4/256, blue: 94/256, alpha: 1)
-            
             infoLable.textColor = UIColor(red: 2/256, green: 62/256, blue: 138/256, alpha: 1)
         } else {
             view.backgroundColor = UIColor(red: 86/256, green: 207/256, blue: 225/256, alpha: 1)
-            
             infoLable.textColor = UIColor(red: 105/256, green: 48/256, blue: 195/256, alpha: 1)
         }
     }
     
     func setupInfoVC() {
-        
         view.backgroundColor = UIColor(red: 86/256, green: 207/256, blue: 225/256, alpha: 1)
-        
         view.addSubview(infoLable)
         view.addSubview(imageVievInfo)
     }
     
     func setupInfoConstraints() {
-        
         NSLayoutConstraint.activate([
             infoLable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
             infoLable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 20),
             infoLable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -20),
         ])
-        
         NSLayoutConstraint.activate([
             imageVievInfo.topAnchor.constraint(equalTo: infoLable.topAnchor, constant: 200),
             imageVievInfo.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 15),
             imageVievInfo.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15),
             imageVievInfo.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
-            imageVievInfo.heightAnchor.constraint(equalToConstant: 220)
+            imageVievInfo.heightAnchor.constraint(equalToConstant: 220),
         ])
     }
 }

@@ -45,27 +45,28 @@ class ResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupResultVC()
         setupResulConstraints()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         let userDef = UserDefaults.standard
         let isRU = userDef.bool(forKey: "isRU")
         let isDark = userDef.bool(forKey: "isDark")
-        
         navigationItem.title = "РЕЗУЛЬТАТ"
         if isRU == false {
             navigationItem.title = "RESULT"
         }
         
         navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(openInfo)), animated: true)
-        
         navigationItem.backButtonTitle = "Результат"
         if isRU == false {
             navigationItem.backButtonTitle = "Result"
+        }
+        
+        self.navigationItem.backButtonTitle = "Результат"
+        if isRU == false {
+            self.navigationItem.backButtonTitle = "Result"
         }
         
         resultLabel.text = "Ваш результат: \(String(format: "%.2f", result))"
@@ -163,7 +164,6 @@ class ResultViewController: UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         if isDark == true {
             view.backgroundColor = UIColor(red: 0/256, green: 150/256, blue: 199/256, alpha: 1)
-            
             let appearance = UINavigationBarAppearance()
             appearance.backgroundColor = UIColor(red: 72/256, green: 202/256, blue: 228/256, alpha: 1)
             appearance.titleTextAttributes = [.foregroundColor: UIColor(red: 3/256, green: 4/256, blue: 94/256, alpha: 1)]
@@ -172,27 +172,21 @@ class ResultViewController: UIViewController {
             navigationController?.navigationBar.standardAppearance = appearance
             navigationController?.navigationBar.compactAppearance = appearance
             navigationController?.navigationBar.scrollEdgeAppearance = appearance
-            
             tabBarController?.tabBar.backgroundColor = UIColor(red: 72/256, green: 202/256, blue: 228/256, alpha: 1)
             tabBarController?.tabBar.tintColor = UIColor(red: 3/256, green: 4/256, blue: 94/256, alpha: 1)
-            
             resultLabel.textColor = UIColor(red: 2/256, green: 62/256, blue: 138/256, alpha: 1)
             descriptionLabel.textColor = UIColor(red: 2/256, green: 62/256, blue: 138/256, alpha: 1)
         } else {
             view.backgroundColor = UIColor(red: 86/256, green: 207/256, blue: 225/256, alpha: 1)
-            
             resultLabel.textColor = UIColor(red: 105/256, green: 48/256, blue: 195/256, alpha: 1)
             descriptionLabel.textColor = UIColor(red: 105/256, green: 48/256, blue: 195/256, alpha: 1)
         }
     }
     
     func setupResultVC() {
-        
         let userDef = UserDefaults.standard
         let isRU = userDef.bool(forKey: "isRU")
-        
         view.backgroundColor = UIColor(red: 86/256, green: 207/256, blue: 225/256, alpha: 1)
-        
         resultLabel.text = "Ваш результат: \(String(format: "%.2f", result))"
         if isRU == false {
             resultLabel.text = "Your result: \(String(format: "%.2f", result))"
@@ -284,18 +278,16 @@ class ResultViewController: UIViewController {
     }
     
     func setupResulConstraints() {
-        
         NSLayoutConstraint.activate([
             stackResult.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 70),
             stackResult.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25),
             stackResult.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -25),
-            stackResult.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100)
+            stackResult.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
         ])
     }
     
     @objc
     func openInfo() {
-        
         let infoVC = InfoViewController()
         navigationController?.pushViewController(infoVC, animated: true)
     }

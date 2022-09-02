@@ -30,18 +30,15 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupHistoryVC()
         setupHistoryConstraints()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         let userDef = UserDefaults.standard
         let isRU = userDef.bool(forKey: "isRU")
         let isDark = userDef.bool(forKey: "isDark")
-        
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = UIColor(red: 128/256, green: 255/256, blue: 219/256, alpha: 1)
         appearance.titleTextAttributes = [.foregroundColor: UIColor.blue]
@@ -59,10 +56,8 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
             navigationController?.navigationBar.standardAppearance = appearance
             navigationController?.navigationBar.compactAppearance = appearance
             navigationController?.navigationBar.scrollEdgeAppearance = appearance
-
             tabBarController?.tabBar.backgroundColor = UIColor(red: 72/256, green: 202/256, blue: 228/256, alpha: 1)
             tabBarController?.tabBar.tintColor = UIColor(red: 3/256, green: 4/256, blue: 94/256, alpha: 1)
-            
             searchHistory.backgroundColor = UIColor(red: 0/256, green: 180/256, blue: 216/256, alpha: 1)
             tabelHistory.backgroundColor = UIColor(red: 0/256, green: 150/256, blue: 199/256, alpha: 1)
         } else {
@@ -71,11 +66,8 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         
         navigationItem.setRightBarButton(UIBarButtonItem(title: "Очистить", style: .plain, target: self, action: #selector(clearTable)), animated: true)
-        
         navigationItem.setLeftBarButton(UIBarButtonItem(title: "Сортировать", style: .plain, target: self, action: #selector(sortedTable)), animated: true)
-        
         navigationItem.backButtonTitle = "История"
-        
         if isRU == false {
             navigationItem.rightBarButtonItem?.title = "Clear"
             navigationItem.leftBarButtonItem?.title = "Sort"
@@ -86,12 +78,9 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func setupHistoryVC() {
-        
         view.backgroundColor = UIColor(red: 86/256, green: 207/256, blue: 225/256, alpha: 1)
-        
         searchHistory.delegate = self
         view.addSubview(searchHistory)
-        
         tabelHistory.register(HistoryCell.self, forCellReuseIdentifier: "cell")
         tabelHistory.dataSource = self
         tabelHistory.delegate = self
@@ -99,18 +88,16 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func setupHistoryConstraints() {
-        
         NSLayoutConstraint.activate([
             searchHistory.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             searchHistory.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            searchHistory.widthAnchor.constraint(equalTo: view.widthAnchor)
+            searchHistory.widthAnchor.constraint(equalTo: view.widthAnchor),
         ])
-        
         NSLayoutConstraint.activate([
             tabelHistory.topAnchor.constraint(equalTo: searchHistory.bottomAnchor),
             tabelHistory.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tabelHistory.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tabelHistory.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tabelHistory.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
     
@@ -123,7 +110,6 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? HistoryCell else { return UITableViewCell() }
         
         if isSearched == true {
@@ -164,7 +150,6 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @objc
     func sortedTable() {
-        
         itemsSorted = items.sorted { Float($0.result)! < Float($1.result)! }
         isSorted = true
         tabelHistory.reloadData()
@@ -172,7 +157,6 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @objc
     func clearTable() {
-        
         let userDef = UserDefaults.standard
         let isRU = userDef.bool(forKey: "isRU")
         
@@ -190,6 +174,9 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
                 calculVC.items.removeAll()
                 self.items.removeAll()
                 self.itemsFilt.removeAll()
+                SceneDelegate.itemsFromData.removeAll()
+                let itemsData = try! JSONEncoder().encode(calculVC.items)
+                userDef.set(itemsData, forKey: "items")
                 self.tabelHistory.reloadData()
             }
             alert.addAction(yes)
@@ -201,6 +188,8 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
                 calculVC.items.removeAll()
                 self.items.removeAll()
                 self.itemsFilt.removeAll()
+                let itemsData = try! JSONEncoder().encode(calculVC.items)
+                userDef.set(itemsData, forKey: "items")
                 self.tabelHistory.reloadData()
             }
             alert.addAction(yes)
@@ -222,14 +211,11 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
             .subviews.first?
             .subviews.first?
             .backgroundColor = .white
-        
         present(alert, animated: true)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         var datail: String = ""
-        
         if isSearched == true {
             datail = itemsFilt[indexPath.row].result
         } else if isSorted == true {
@@ -240,9 +226,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
         
         let datailFloat = Float(datail)
         let datailVC = DatailViewController(result: datailFloat!)
-        
         tableView.deselectRow(at: indexPath, animated: true)
-        
         navigationController?.pushViewController(datailVC, animated: true)
     }
 }
@@ -250,7 +234,6 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 extension HistoryViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        
         isSearched = false
         searchHistory.text = ""
         tabelHistory.reloadData()
@@ -258,10 +241,10 @@ extension HistoryViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
         if searchText != "" {
-            itemsFilt = items.filter { $0.result.lowercased().uppercased().prefix(searchText.count) == searchText.lowercased().uppercased() }
+            itemsFilt = items.filter { $0.name.lowercased().uppercased().prefix(searchText.count) == searchText.lowercased().uppercased() }
         }
+        
         isSearched = true
         tabelHistory.reloadData()
     }
