@@ -28,6 +28,12 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
         return table
     }()
     
+    var refresh: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.tintColor = .systemBlue
+        return refresh
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupHistoryVC()
@@ -85,6 +91,8 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
         tabelHistory.dataSource = self
         tabelHistory.delegate = self
         view.addSubview(tabelHistory)
+        refresh.addTarget(self, action: #selector(onRefresh(sender:)), for: .valueChanged)
+        tabelHistory.refreshControl = refresh
     }
     
     func setupHistoryConstraints() {
@@ -153,6 +161,13 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
         itemsSorted = items.sorted { Float($0.result)! < Float($1.result)! }
         isSorted = true
         tabelHistory.reloadData()
+    }
+    
+    @objc
+    func onRefresh(sender: UIRefreshControl) {
+        isSorted = false
+        tabelHistory.reloadData()
+        sender.endRefreshing()
     }
     
     @objc
